@@ -1,0 +1,22 @@
+# Railway configuration for deploying backend service
+# Build & run using Dockerfile at backend/
+
+[build]
+# Build context is project root; Dockerfile specifies backend
+builder = "DOCKERFILE"
+# By default, Railway will use Dockerfile at repo root which serves backend with server_postgres entrypoint
+
+[deploy]
+healthcheckPath = "/api/"
+healthcheckTimeout = 300
+restartPolicyType = "ON_FAILURE"
+
+[service]
+name = "fastapi-backend-postgres"
+
+[env]
+# Set DATABASE_URL on Railway project dashboard or via CLI
+# Example (async): postgresql+asyncpg://postgres:PASS@postgres-production-ef03.up.railway.app:5432/railway?sslmode=require
+# If DATABASE_URL is not set, backend falls back to Mongo using MONGO_URL and DB_NAME
+DATABASE_URL = "postgresql+asyncpg://postgres:SycuEBupEuxcrGsrDtlZiAutpDmGyyKN@postgres-production-ef03.up.railway.app:5432/railway?sslmode=require"
+PORT = "8001"
